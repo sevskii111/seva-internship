@@ -10,7 +10,7 @@
 Материалы:
 - [ ]  ?(надо выбрать откуда именно смотреть теорию)
 ### Основы ЭКГ
-- [ ] [ЭКГ под силу каждому](https://www.youtube.com/watch?v=H-TnrZxHbzU&list=PLlNBsfdvoYudukyw5axeXDRxp0jf_gffc) (2/10)
+- [ ] [ЭКГ под силу каждому](https://www.youtube.com/watch?v=H-TnrZxHbzU&list=PLlNBsfdvoYudukyw5axeXDRxp0jf_gffc) (3/10)
 ### Машинное обучение
 - [ ] [Видео-курс](https://dlcourse.ai/) (0/7)
 - [ ] [Книга](https://habr.com/ru/post/456738/) (0%)
