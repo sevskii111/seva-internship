@@ -9,16 +9,25 @@ def binary_classification_metrics(prediction, ground_truth):
     Returns:
     precision, recall, f1, accuracy - classification metrics
     '''
-    precision = 0
-    recall = 0
-    accuracy = 0
-    f1 = 0
 
     # TODO: implement metrics!
     # Some helpful links:
     # https://en.wikipedia.org/wiki/Precision_and_recall
     # https://en.wikipedia.org/wiki/F1_score
     
+
+    total = len(ground_truth)
+    correct = sum(prediction == ground_truth)
+    accuracy = correct / total
+
+    tp = sum((prediction == True) & (prediction == ground_truth))
+    fp = sum((prediction == True) & (prediction != ground_truth))
+    fn = sum((prediction == False) & (prediction != ground_truth))
+    precision = tp / (tp + fp)
+    recall = tp / (tp + fn)
+    f1 = 2 * precision * recall / (precision + recall)
+
+   
     return precision, recall, f1, accuracy
 
 
