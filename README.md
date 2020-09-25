@@ -14,7 +14,7 @@
 - [ ] [Математика для искусственных нейронных сетей для новичков (с практическими примерами на python)](https://habr.com/ru/post/307004/)
 - [ ] [Мини "RoadMap" для повторения математики, используемой в машинном обучении](https://vk.com/mlcourse?w=wall-158557357_3) 
 ### Основы ЭКГ
-- [ ] [ЭКГ под силу каждому](https://www.youtube.com/watch?v=H-TnrZxHbzU&list=PLlNBsfdvoYudukyw5axeXDRxp0jf_gffc) (3/10)
+- [ ] [ЭКГ под силу каждому](https://www.youtube.com/watch?v=H-TnrZxHbzU&list=PLlNBsfdvoYudukyw5axeXDRxp0jf_gffc) (5/10)
 ### Машинное обучение
 - [ ] [Видео-курс](https://dlcourse.ai/) (2/7)
 - [ ] [Книга](https://habr.com/ru/post/456738/) (0%)
