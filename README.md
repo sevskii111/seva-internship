@@ -9,7 +9,9 @@
 
 
 Материалы:
-- [ ]  ?(надо выбрать откуда именно смотреть теорию)
+- [x] [Высшая математика – просто и доступно](http://mathprofi.ru/)
+- [ ] [Linear Algebra Review and Reference (Stanford University)](http://cs229.stanford.edu/section/cs229-linalg.pdf)
+- [ ] [Математика для искусственных нейронных сетей для новичков (с практическими примерами на python)](https://habr.com/ru/post/307004/)
 ### Основы ЭКГ
 - [ ] [ЭКГ под силу каждому](https://www.youtube.com/watch?v=H-TnrZxHbzU&list=PLlNBsfdvoYudukyw5axeXDRxp0jf_gffc) (3/10)
 ### Машинное обучение
