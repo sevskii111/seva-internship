@@ -10,8 +10,9 @@
 
 Материалы:
 - [x] [Высшая математика – просто и доступно](http://mathprofi.ru/)
-- [ ] [Linear Algebra Review and Reference (Stanford University)](http://cs229.stanford.edu/section/cs229-linalg.pdf)
+- [ ] [ Stanford University: Linear Algebra Review and Reference (В первую очередь нужно прочитать раздел Matrix calculus (страница 20))](http://cs229.stanford.edu/section/cs229-linalg.pdf)
 - [ ] [Математика для искусственных нейронных сетей для новичков (с практическими примерами на python)](https://habr.com/ru/post/307004/)
+- [ ] [Мини "RoadMap" для повторения математики, используемой в машинном обучении](https://vk.com/mlcourse?w=wall-158557357_3) 
 ### Основы ЭКГ
 - [ ] [ЭКГ под силу каждому](https://www.youtube.com/watch?v=H-TnrZxHbzU&list=PLlNBsfdvoYudukyw5axeXDRxp0jf_gffc) (3/10)
 ### Машинное обучение
