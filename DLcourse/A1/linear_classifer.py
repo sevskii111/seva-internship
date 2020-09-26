@@ -15,7 +15,13 @@ def softmax(predictions):
     '''
     # TODO implement softmax
     # Your final implementation shouldn't have any loops
-    raise Exception("Not implemented!")
+    if len(predictions.shape) == 1:
+      normalized_predicitons = predictions.copy() - np.max(predictions)
+      probs = np.exp(normalized_predicitons) / np.sum(np.exp(normalized_predicitons))
+    else:
+      normalized_predicitons = predictions.copy() - np.max(predictions, axis=1).reshape(-1, 1)
+      probs = np.exp(normalized_predicitons) / np.sum(np.exp(normalized_predicitons), axis=1).reshape(-1, 1)
+    return probs
 
 
 def cross_entropy_loss(probs, target_index):
@@ -33,7 +39,12 @@ def cross_entropy_loss(probs, target_index):
     '''
     # TODO implement cross-entropy
     # Your final implementation shouldn't have any loops
-    raise Exception("Not implemented!")
+    if type(target_index) == np.ndarray:
+      loss = np.sum(-np.log(probs[np.arange(target_index.shape[0]), target_index.T]))
+    else:
+      loss = -np.log(probs[target_index])
+
+    return loss
 
 
 def softmax_with_cross_entropy(predictions, target_index):
@@ -53,7 +64,15 @@ def softmax_with_cross_entropy(predictions, target_index):
     '''
     # TODO implement softmax with cross-entropy
     # Your final implementation shouldn't have any loops
-    raise Exception("Not implemented!")
+    probs = softmax(predictions)
+    loss = cross_entropy_loss(probs, target_index)
+
+    dprediction = probs.copy()
+
+    if type(target_index) == np.ndarray:
+      dprediction[np.arange(0, target_index.shape[0]), target_index.T] = dprediction[np.arange(0, target_index.shape[0]), target_index.T] - 1
+    else:
+      dprediction[target_index] = dprediction[target_index] - 1
 
     return loss, dprediction
 
@@ -96,8 +115,13 @@ def linear_softmax(X, W, target_index):
 
     # TODO implement prediction and gradient over W
     # Your final implementation shouldn't have any loops
-    raise Exception("Not implemented!")
-    
+    probs = softmax(predictions)
+    loss = cross_entropy_loss(probs, target_index)
+
+    print(probs, target_index)    
+
+    dW = 2 / len(target_index) * np.dot(X.T, probs - target_index)
+
     return loss, dW
 
 
