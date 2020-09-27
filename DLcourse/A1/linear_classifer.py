@@ -92,7 +92,8 @@ def l2_regularization(W, reg_strength):
 
     # TODO: implement l2 regularization and gradient
     # Your final implementation shouldn't have any loops
-    raise Exception("Not implemented!")
+    loss = np.sum(W ** 2) * reg_strength
+    grad = W * 2 * reg_strength
 
     return loss, grad
     
@@ -115,12 +116,9 @@ def linear_softmax(X, W, target_index):
 
     # TODO implement prediction and gradient over W
     # Your final implementation shouldn't have any loops
-    probs = softmax(predictions)
-    loss = cross_entropy_loss(probs, target_index)
+    loss, dprediction = softmax_with_cross_entropy(predictions, target_index)
 
-    print(probs, target_index)    
-
-    dW = 2 / len(target_index) * np.dot(X.T, probs - target_index)
+    dW = X.T.dot(dprediction)
 
     return loss, dW
 
@@ -161,10 +159,30 @@ class LinearSoftmaxClassifier():
             # Apply gradient to weights using learning rate
             # Don't forget to add both cross-entropy loss
             # and regularization!
-            raise Exception("Not implemented!")
+            grad = np.zeros((len(batches_indices), num_features, num_classes))
+            loss = np.zeros((len(batches_indices)))
 
+            for i, batch_indices in enumerate(batches_indices):
+              batch_X = X[batch_indices]
+              batch_y = y[batch_indices]
+
+              log_loss, log_dprediction = linear_softmax(batch_X, self.W, batch_y)
+              l2_loss, l2_grad = l2_regularization(self.W, reg)
+
+              grad[i] = log_dprediction + l2_grad
+              loss[i] = log_loss + l2_loss
             # end
-            print("Epoch %i, loss: %f" % (epoch, loss))
+
+            grad = np.average(grad, axis=0) * learning_rate
+            # grad = grad 
+
+            self.W = self.W - grad
+
+            loss = np.sum(loss) / len(batch_indices)
+
+            loss_history.append(loss)
+
+            #print("Epoch %i, loss: %f" % (epoch, loss))
 
         return loss_history
 
@@ -182,7 +200,8 @@ class LinearSoftmaxClassifier():
 
         # TODO Implement class prediction
         # Your final implementation shouldn't have any loops
-        raise Exception("Not implemented!")
+        predictions = np.dot(X, self.W)
+        y_pred = np.argmax(predictions, axis=1)
 
         return y_pred
 
