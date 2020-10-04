@@ -10,18 +10,19 @@ def softmax(predictions):
         classifier output
 
     Returns:
-      probs, np array of the same shape as predictions - 
+      probs, np array of the same shape as predictions -
         probability for every class, 0..1
     '''
     # TODO implement softmax
     # Your final implementation shouldn't have any loops
     if len(predictions.shape) == 1:
-      normalized_predicitons = predictions.copy() - np.max(predictions)
-      probs = np.exp(normalized_predicitons) / np.sum(np.exp(normalized_predicitons))
+        preds = predictions - np.max(predictions)
+        softmax = np.exp(preds) / np.sum(np.exp(preds))
     else:
-      normalized_predicitons = predictions.copy() - np.max(predictions, axis=1).reshape(-1, 1)
-      probs = np.exp(normalized_predicitons) / np.sum(np.exp(normalized_predicitons), axis=1).reshape(-1, 1)
-    return probs
+        preds = predictions - np.max(predictions, axis=1)[:, np.newaxis]
+        sums = np.sum(np.exp(preds), axis=1)[:, np.newaxis]
+        softmax = np.exp(preds) / sums
+    return softmax
 
 
 def cross_entropy_loss(probs, target_index):
@@ -39,11 +40,12 @@ def cross_entropy_loss(probs, target_index):
     '''
     # TODO implement cross-entropy
     # Your final implementation shouldn't have any loops
-    if type(target_index) == np.ndarray:
-      loss = np.sum(-np.log(probs[np.arange(target_index.shape[0]), target_index.T]))
+    if len(probs.shape) == 1:
+        loss = -np.log(probs[target_index])
     else:
-      loss = -np.log(probs[target_index])
-
+        indices = [np.arange(0, probs.shape[0]), target_index.T]
+        loss = -np.sum(
+            np.log(probs[indices]))
     return loss
 
 
@@ -67,12 +69,15 @@ def softmax_with_cross_entropy(predictions, target_index):
     probs = softmax(predictions)
     loss = cross_entropy_loss(probs, target_index)
 
-    dprediction = probs.copy()
+    dprediction = np.copy(probs)
 
-    if type(target_index) == np.ndarray:
-      dprediction[np.arange(0, target_index.shape[0]), target_index.T] = dprediction[np.arange(0, target_index.shape[0]), target_index.T] - 1
+    if len(probs.shape) == 1:
+        dprediction[target_index] = dprediction[target_index] - 1
     else:
-      dprediction[target_index] = dprediction[target_index] - 1
+        indices = [np.arange(0, probs.shape[0]), target_index.T]
+        dprediction[indices] = dprediction[indices] - 1
+        dprediction = dprediction / predictions.shape[0]
+        loss = loss / predictions.shape[0]
 
     return loss, dprediction
 
@@ -92,11 +97,11 @@ def l2_regularization(W, reg_strength):
 
     # TODO: implement l2 regularization and gradient
     # Your final implementation shouldn't have any loops
-    loss = np.sum(W ** 2) * reg_strength
-    grad = W * 2 * reg_strength
+    loss = reg_strength * np.sum(np.square(W.flatten()))
+    grad = reg_strength * 2 * W
 
     return loss, grad
-    
+
 
 def linear_softmax(X, W, target_index):
     '''
@@ -117,7 +122,6 @@ def linear_softmax(X, W, target_index):
     # TODO implement prediction and gradient over W
     # Your final implementation shouldn't have any loops
     loss, dprediction = softmax_with_cross_entropy(predictions, target_index)
-
     dW = X.T.dot(dprediction)
 
     return loss, dW
@@ -131,7 +135,7 @@ class LinearSoftmaxClassifier():
             epochs=1):
         '''
         Trains linear classifier
-        
+
         Arguments:
           X, np array (num_samples, num_features) - training data
           y, np array of int (num_samples) - labels
@@ -159,37 +163,39 @@ class LinearSoftmaxClassifier():
             # Apply gradient to weights using learning rate
             # Don't forget to add both cross-entropy loss
             # and regularization!
-            grad = np.zeros((len(batches_indices), num_features, num_classes))
-            loss = np.zeros((len(batches_indices)))
+            loss = 0
+            grad = np.zeros(self.W.shape)
+            for batch_indices in batches_indices:
+                batch_X = X[batch_indices]
+                batch_y = y[batch_indices]
 
-            for i, batch_indices in enumerate(batches_indices):
-              batch_X = X[batch_indices]
-              batch_y = y[batch_indices]
+                batch_log_loss, batch_log_loss_grad = linear_softmax(
+                    batch_X, self.W, batch_y)
+                batch_l2_loss, batch_l2_grad = l2_regularization(
+                    self.W, reg)
 
-              log_loss, log_dprediction = linear_softmax(batch_X, self.W, batch_y)
-              l2_loss, l2_grad = l2_regularization(self.W, reg)
+                batch_size = len(batch_indices)
+                batch_loss = (batch_log_loss + batch_l2_loss)
+                batch_grad = (batch_log_loss_grad + batch_l2_grad)
 
-              grad[i] = log_dprediction + l2_grad
-              loss[i] = log_loss + l2_loss
-            # end
+                loss = loss + batch_loss
+                grad = grad + batch_grad
 
-            grad = np.average(grad, axis=0) * learning_rate
-            # grad = grad 
+            batches_count = len(batch_indices)
+            loss = loss / batches_count
+            grad = grad / batches_count
 
-            self.W = self.W - grad
-
-            loss = np.sum(loss) / len(batch_indices)
-
+            self.W = self.W - grad * learning_rate
             loss_history.append(loss)
-
-            #print("Epoch %i, loss: %f" % (epoch, loss))
+            # end
+            print("Epoch %i, loss: %f" % (epoch, loss))
 
         return loss_history
 
     def predict(self, X):
         '''
         Produces classifier predictions on the set
-       
+
         Arguments:
           X, np array (test_samples, num_features)
 
@@ -200,16 +206,6 @@ class LinearSoftmaxClassifier():
 
         # TODO Implement class prediction
         # Your final implementation shouldn't have any loops
-        predictions = np.dot(X, self.W)
-        y_pred = np.argmax(predictions, axis=1)
+        y_pred = np.argmax(X.dot(self.W), axis=1)
 
         return y_pred
-
-
-
-                
-                                                          
-
-            
-
-                
