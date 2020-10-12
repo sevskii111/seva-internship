@@ -2,10 +2,10 @@
 ## Основной план
 ### Математка
 Темы:
-- [ ] Матричное умножение
+- [x] Матричное умножение
 - [ ] Функции от многих переменных
 - [ ] Производные
-- [ ] Chain rule
+- [x] Chain rule
 
 
 Материалы:
@@ -16,10 +16,10 @@
 ### Основы ЭКГ
 - [ ] [ЭКГ под силу каждому](https://www.youtube.com/watch?v=H-TnrZxHbzU&list=PLlNBsfdvoYudukyw5axeXDRxp0jf_gffc) (6/10)
 ### Машинное обучение
-- [ ] [Видео-курс](https://dlcourse.ai/) (3/7)
+- [ ] [Видео-курс](https://dlcourse.ai/) (6/7, пропущено одно задание)
 - [ ] [Книга](https://habr.com/ru/post/456738/) (0%)
-- [ ] [Туториал по PyTorch](https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html)
-- [ ] [Статья по PyTorch](https://habr.com/ru/post/334380/)
+- [x] [Туториал по PyTorch](https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html)
+- [x] [Статья по PyTorch](https://habr.com/ru/post/334380/)
 ### Создание презентации
 *TODO*
 ## Дополнительные материалы
