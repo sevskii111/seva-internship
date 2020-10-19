@@ -2,3 +2,6 @@
 __pycache__
 data
 .DS_Store
+test_kaggle
+train_kaggle
+*.zip

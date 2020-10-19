@@ -16,7 +16,7 @@
 ### Основы ЭКГ
 - [ ] [ЭКГ под силу каждому](https://www.youtube.com/watch?v=H-TnrZxHbzU&list=PLlNBsfdvoYudukyw5axeXDRxp0jf_gffc) (6/10)
 ### Машинное обучение
-- [ ] [Видео-курс](https://dlcourse.ai/) (6/7, пропущено одно задание)
+- [ ] [Видео-курс](https://dlcourse.ai/) (7/7, пропущено одно задание)
 - [ ] [Книга](http://neuralnetworksanddeeplearning.com/about.html) (1/6)
 - [x] [Туториал по PyTorch](https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html)
 - [x] [Статья по PyTorch](https://habr.com/ru/post/334380/)
