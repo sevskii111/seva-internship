@@ -21,7 +21,9 @@
 - [x] [Туториал по PyTorch](https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html)
 - [x] [Статья по PyTorch](https://habr.com/ru/post/334380/)
 ### Создание презентации
-*TODO*
+[План презентации](/presentation/plan.md)
+
+[Слайды](https://slides.com/sevskiiv/deck)
 ## Дополнительные материалы
 - [x] [git-game](https://github.com/git-game)
 - [x] [LearnGitBranching](learngitbranching.js.org)
